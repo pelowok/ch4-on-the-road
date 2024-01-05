@@ -28,3 +28,41 @@ function renderWagons() {
 window.onload = function () {
   renderWagons();
 };
+
+
+// Function to handle drag start
+function dragStart(event) {
+  event.dataTransfer.setData('text/plain', event.target.id);
+}
+
+// Function to handle drag over
+function dragOver(event) {
+  event.preventDefault();
+}
+
+// Function to handle drop
+function drop(event) {
+  event.preventDefault();
+  const data = event.dataTransfer.getData('text/plain');
+  const draggedElement = document.getElementById(data);
+  const dropzone = event.target;
+
+  // Check if the dropped element is a wagon
+  if (draggedElement.classList.contains('wagon')) {
+    dropzone.appendChild(draggedElement);
+  }
+}
+
+// Add drag and drop event listeners
+document.addEventListener('DOMContentLoaded', function () {
+  renderWagons();
+
+  const wagonsDivs = document.querySelectorAll('.wagon');
+
+  wagonsDivs.forEach(wagonDiv => {
+    wagonDiv.addEventListener('dragstart', dragStart);
+    wagonDiv.addEventListener('dragover', dragOver);
+    wagonDiv.addEventListener('drop', drop);
+    wagonDiv.setAttribute('draggable', true);
+  });
+});
