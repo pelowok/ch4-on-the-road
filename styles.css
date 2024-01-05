@@ -1,15 +1,16 @@
-/* Basic styles, feel free to enhance */
+/* Adjusted styles for larger wagons */
 .wagon {
-  width: 100px;
-  height: 50px;
+  width: 200px; /* Increased width */
+  height: 80px; /* Increased height */
   background-color: #ccc;
   border: 1px solid #999;
-  text-align: center;
-  line-height: 50px;
+  padding: 10px; /* Padding for inner content */
   margin: 10px;
-  cursor: pointer;
-  user-select: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
+
 /* Adjustments for layout and drag target area */
 body {
   margin: 50px 0 0 50px; /* Add space at the top and left */
