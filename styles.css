@@ -10,3 +10,12 @@
   cursor: pointer;
   user-select: none;
 }
+/* Adjustments for layout and drag target area */
+body {
+  margin: 50px 0 0 50px; /* Add space at the top and left */
+}
+
+.wagon-container {
+  background-color: #f5deb3; /* Light brown color for drag target area */
+  padding: 20px; /* Add padding for the drag target area */
+}
