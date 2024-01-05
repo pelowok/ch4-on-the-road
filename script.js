@@ -45,11 +45,18 @@ function drop(event) {
   event.preventDefault();
   const data = event.dataTransfer.getData('text/plain');
   const draggedElement = document.getElementById(data);
-  const dropzone = event.target;
+  const dropzone = event.target.closest('.wagon-container');
 
-  // Check if the dropped element is a wagon
-  if (draggedElement.classList.contains('wagon')) {
-    dropzone.appendChild(draggedElement);
+  // Check if the dropped element is a wagon and drop within the container
+  if (draggedElement.classList.contains('wagon') && dropzone) {
+    const wagons = Array.from(dropzone.getElementsByClassName('wagon'));
+    const indexToDrop = wagons.indexOf(event.target);
+
+    if (indexToDrop !== -1) {
+      dropzone.insertBefore(draggedElement, wagons[indexToDrop + 1]);
+    } else {
+      dropzone.appendChild(draggedElement);
+    }
   }
 }
 
@@ -66,3 +73,4 @@ document.addEventListener('DOMContentLoaded', function () {
     wagonDiv.setAttribute('draggable', true);
   });
 });
+
