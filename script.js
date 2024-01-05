@@ -8,14 +8,16 @@ const wagons = [
 // Function to render wagons
 function renderWagons() {
   const wagonContainer = document.getElementById('wagonContainer');
+  wagonContainer.innerHTML = ''; // Clear the container before rendering
 
   wagons.forEach(wagon => {
     const wagonDiv = document.createElement('div');
     wagonDiv.classList.add('wagon');
     wagonDiv.textContent = wagon.label;
+    wagonDiv.setAttribute('draggable', true);
+    wagonDiv.setAttribute('id', `wagon${wagon.id}`); // Set unique IDs for wagons
 
     wagonDiv.addEventListener('click', () => {
-      // Handle click event - you can add logic to display members of this wagon
       console.log(`Clicked ${wagon.label}`);
       // Add logic to display members of this wagon
     });
@@ -23,6 +25,8 @@ function renderWagons() {
     wagonContainer.appendChild(wagonDiv);
   });
 }
+
+
 
 // Render wagons when the page loads
 window.onload = function () {
@@ -60,17 +64,15 @@ function drop(event) {
   }
 }
 
+
 // Add drag and drop event listeners
 document.addEventListener('DOMContentLoaded', function () {
-  renderWagons();
+  renderWagons(); // Render wagons once on page load
 
-  const wagonsDivs = document.querySelectorAll('.wagon');
+  const wagonContainer = document.getElementById('wagonContainer');
 
-  wagonsDivs.forEach(wagonDiv => {
-    wagonDiv.addEventListener('dragstart', dragStart);
-    wagonDiv.addEventListener('dragover', dragOver);
-    wagonDiv.addEventListener('drop', drop);
-    wagonDiv.setAttribute('draggable', true);
-  });
+  wagonContainer.addEventListener('dragstart', dragStart);
+  wagonContainer.addEventListener('dragover', dragOver);
+  wagonContainer.addEventListener('drop', drop);
 });
 
