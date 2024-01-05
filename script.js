@@ -118,97 +118,36 @@ const wagons = [
 // Log the result for checking
 console.log(wagons);
 
+// Function to render wagons as cards
+function renderWagonsAsCards() {
+  const wagonContainer = document.getElementById('wagonContainer');
+  wagonContainer.innerHTML = '';
 
-// // Placeholder functions
-// function generateWagonMaster() {
-//   // Implement logic to generate a wagon master
-//   // For example:
-//   return new Individual();
-// }
+  wagons.forEach(wagon => {
+    const wagonCard = document.createElement('div');
+    wagonCard.classList.add('wagon-card');
 
-// function generateIndividualWithSubtype(role, subtype) {
-//   // Implement logic to generate individuals with specified role and subtype
-//   // For example:
-//   return new Individual();
-// }
+    const title = document.createElement('h2');
+    title.textContent = `Wagon ${wagon.id}`;
+    wagonCard.appendChild(title);
 
-// function generateIndividualWithRole(role) {
-//   // Implement logic to generate individuals with specified role
-//   // For example:
-//   return new Individual();
-// }
+    const attributesList = document.createElement('ul');
+    for (const key in wagon) {
+      if (Object.prototype.hasOwnProperty.call(wagon, key)) {
+        const listItem = document.createElement('li');
+        listItem.textContent = `${key}: ${JSON.stringify(wagon[key])}`;
+        attributesList.appendChild(listItem);
+      }
+    }
+    wagonCard.appendChild(attributesList);
 
-// function generateCargo() {
-//   // Implement logic to generate cargo
-//   // For example:
-//   return 'Cargo placeholder';
-// }
-
-// function getRandomLocation(isDestination = false, startingLocation = '') {
-//   // Implement logic to get a random location for starting/destination
-//   // For example:
-//   return 'Random location placeholder';
-// }
-
-// function generateWagonName(demeanor, cargo) {
-//   // Implement logic to generate wagon name
-//   // For example:
-//   return 'Wagon name placeholder';
-// }
+    wagonContainer.appendChild(wagonCard);
+  });
+}
 
 
-// // Simulated data - replace this with your actual data fetching logic
-// const wagons = [
-//   {
-//     id: 1,
-//     label: 'Wagon 1',
-//     wagon_master:  generateWagonMaster(),
-//     bodyguard:  generateIndividualWithSubtype('security', 'bodyguard'),
-//     teamster:  generateIndividualWithSubtype('crew', 'teamster'),
-//     crew: Array.from({ length: Math.floor(Math.random() * 3) }, () =>  generateIndividualWithRole('crew')),
-//     guards: ['expertGuard', 'veteranGuard', 'noviceGuard'].map(subtype =>  generateIndividualWithSubtype('security', subtype)),
-//     sergeant:  (len(guards) >= 3) ? generateIndividualWithSubtype('security', 'sergeant') : null,
-//     passengers: Array.from({ length: Math.floor(Math.random() * 6) }, () =>  generateIndividualWithSubtype('passenger')),
-//     cargo:  generateCargo(),
-//     starting_location:  getRandomLocation(),
-//     destination:  getRandomLocation(true, starting_location),
-//     wagon_name:  generateWagonName(wagon_master.demeanor, cargo),
-//     additionalAttribute: 'some value' // Example of an additional attribute
-//   },
-//   {
-//     id: 2,
-//     label: 'Wagon 2',
-//     wagon_master:  generateWagonMaster(),
-//     bodyguard:  generateIndividualWithSubtype('security', 'bodyguard'),
-//     teamster:  generateIndividualWithSubtype('crew', 'teamster'),
-//     crew: Array.from({ length: Math.floor(Math.random() * 3) }, () =>  generateIndividualWithRole('crew')),
-//     guards: ['expertGuard', 'veteranGuard', 'noviceGuard'].map(subtype =>  generateIndividualWithSubtype('security', subtype)),
-//     sergeant:  (len(guards) >= 3) ? generateIndividualWithSubtype('security', 'sergeant') : null,
-//     passengers: Array.from({ length: Math.floor(Math.random() * 6) }, () =>  generateIndividualWithSubtype('passenger')),
-//     cargo:  generateCargo(),
-//     starting_location:  getRandomLocation(),
-//     destination:  getRandomLocation(true, starting_location),
-//     wagon_name:  generateWagonName(wagon_master.demeanor, cargo),
-//     additionalAttribute: 'some value' // Example of an additional attribute
-//   },
-//   {
-//     id: 3,
-//     label: 'Wagon 3',
-//     wagon_master:  generateWagonMaster(),
-//     bodyguard:  generateIndividualWithSubtype('security', 'bodyguard'),
-//     teamster:  generateIndividualWithSubtype('crew', 'teamster'),
-//     crew: Array.from({ length: Math.floor(Math.random() * 3) }, () =>  generateIndividualWithRole('crew')),
-//     guards: ['expertGuard', 'veteranGuard', 'noviceGuard'].map(subtype =>  generateIndividualWithSubtype('security', subtype)),
-//     sergeant:  (len(guards) >= 3) ? generateIndividualWithSubtype('security', 'sergeant') : null,
-//     passengers: Array.from({ length: Math.floor(Math.random() * 6) }, () =>  generateIndividualWithSubtype('passenger')),
-//     cargo:  generateCargo(),
-//     starting_location:  getRandomLocation(),
-//     destination:  getRandomLocation(true, starting_location),
-//     wagon_name:  generateWagonName(wagon_master.demeanor, cargo),
-//     additionalAttribute: 'some value' // Example of an additional attribute
-//   }
-// ];
-
-
-// Call the function once the page has loaded
-window.addEventListener('load', renderWagonsWithDropdowns);
+// Execute the functions after the page has loaded
+window.addEventListener('load', () => {
+  // wagons = createWagonsArray(); // Create the wagons array
+  renderWagonsAsCards(); // Render wagons as cards
+});

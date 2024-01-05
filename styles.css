@@ -20,3 +20,24 @@ body {
   background-color: #f5deb3; /* Light brown color for drag target area */
   padding: 20px; /* Add padding for the drag target area */
 }
+/* Add your CSS styles for wagon cards */
+.wagon-card {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.wagon-card h2 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.wagon-card ul {
+  list-style: none;
+  padding: 0;
+}
+
+.wagon-card ul li {
+  margin-bottom: 5px;
+}
