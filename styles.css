@@ -1,0 +1,12 @@
+/* Basic styles, feel free to enhance */
+.wagon {
+  width: 100px;
+  height: 50px;
+  background-color: #ccc;
+  border: 1px solid #999;
+  text-align: center;
+  line-height: 50px;
+  margin: 10px;
+  cursor: pointer;
+  user-select: none;
+}
