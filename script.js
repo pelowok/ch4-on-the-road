@@ -1,91 +1,50 @@
-// Simulated data - replace this with your actual data fetching logic
-const wagons = [
-  { id: 1, label: 'Wagon 1' },
-  { id: 2, label: 'Wagon 2' },
-  { id: 3, label: 'Wagon 3' }
-];
-
-// Function to render wagons
-function renderWagons() {
+// Function to render wagons with dropdowns for order placement
+function renderWagonsWithDropdowns() {
   const wagonContainer = document.getElementById('wagonContainer');
-  wagonContainer.innerHTML = ''; // Clear the container before rendering
+  wagonContainer.innerHTML = '';
 
   wagons.forEach(wagon => {
     const wagonDiv = document.createElement('div');
     wagonDiv.classList.add('wagon');
-    wagonDiv.textContent = wagon.label;
-    wagonDiv.setAttribute('draggable', true);
-    wagonDiv.setAttribute('id', `wagon${wagon.id}`); // Set unique IDs for wagons
 
-    wagonDiv.addEventListener('click', () => {
-      console.log(`Clicked ${wagon.label}`);
-      // Add logic to display members of this wagon
+    const dropdown = document.createElement('select');
+    dropdown.addEventListener('change', () => {
+      const selectedPosition = parseInt(dropdown.value);
+      moveWagonToPosition(wagon, selectedPosition);
     });
+
+    // Populate dropdown with options representing wagon positions
+    for (let i = 1; i <= wagons.length; i++) {
+      const option = document.createElement('option');
+      option.value = i;
+      option.textContent = `Position ${i}`;
+      dropdown.appendChild(option);
+    }
+
+    wagonDiv.appendChild(dropdown);
+    wagonDiv.appendChild(document.createTextNode(wagon.label));
 
     wagonContainer.appendChild(wagonDiv);
   });
 }
 
+// Function to move wagon to the selected position
+function moveWagonToPosition(wagon, position) {
+  const currentIndex = wagons.indexOf(wagon);
+  const newIndex = position - 1; // Adjust for 0-based index
 
+  if (currentIndex !== newIndex) {
+    // Remove wagon from current position
+    wagons.splice(currentIndex, 1);
 
-// Render wagons when the page loads
-window.onload = function () {
-  renderWagons();
-};
+    // Insert wagon at new position
+    wagons.splice(newIndex, 0, wagon);
 
-
-// Function to handle drag start
-function dragStart(event) {
-  event.dataTransfer.setData('text/plain', event.target.id);
-}
-
-// Function to handle drag over
-function dragOver(event) {
-  event.preventDefault();
-}
-
-// // Function to handle drop
-// function drop(event) {
-//   event.preventDefault();
-//   const data = event.dataTransfer.getData('text/plain');
-//   const draggedElement = document.getElementById(data);
-//   const dropzone = event.target.closest('.wagon-container');
-
-//   // Check if the dropped element is a wagon and drop within the container
-//   if (draggedElement.classList.contains('wagon') && dropzone) {
-//     const wagons = Array.from(dropzone.getElementsByClassName('wagon'));
-//     const indexToDrop = wagons.indexOf(event.target);
-
-//     if (indexToDrop !== -1) {
-//       dropzone.insertBefore(draggedElement, wagons[indexToDrop + 1]);
-//     } else {
-//       dropzone.appendChild(draggedElement);
-//     }
-//   }
-// }
-
-// Function to handle drop
-function drop(event) {
-  event.preventDefault();
-  const data = event.dataTransfer.getData('text/plain');
-  const draggedElement = document.getElementById(data);
-  const dropzone = event.target.closest('.wagon-container');
-
-  // Check if the dropped element is a wagon and drop within the container
-  if (draggedElement.classList.contains('wagon') && dropzone) {
-    dropzone.appendChild(draggedElement);
+    renderWagonsWithDropdowns(); // Re-render wagons after reordering
   }
 }
 
-
-// Add drag and drop event listeners
-document.addEventListener('DOMContentLoaded', function () {
-  renderWagons(); // Render wagons once on page load
-
-  const wagonContainer = document.getElementById('wagonContainer');
-
-  wagonContainer.addEventListener('dragstart', dragStart);
-  wagonContainer.addEventListener('dragover', dragOver);
-  wagonContainer.addEventListener('drop', drop);
-});
-
+// Render wagons with dropdowns when the page loads
+window.onload = function () {
+  renderWagonsWithDropdowns();
+};
